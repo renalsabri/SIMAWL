@@ -62,7 +62,7 @@
       }
     </style>
   </head>
-  <body class="font-display bg-background-light dark:bg-background-dark min-h-screen flex flex-col">
+  <body class="font-display bg-background-light dark:bg-background-dark min-h-screen flex flex-col relative">
     
     <!-- Top Navigation Header (Admin Version) -->
     <header class="sticky top-0 z-20 w-full bg-gradient-to-r from-lazuli-blue to-medical-green shadow-md">
@@ -89,9 +89,13 @@
                   <span class="material-symbols-outlined" style="font-size: 20px;">dashboard</span>
                   <span>Ke Dashboard</span>
                 </a>
-                <a class="flex w-full items-center gap-3 px-4 py-2 text-sm text-[#111318] hover:bg-gray-100 dark:text-slate-200 dark:hover:bg-slate-700" href="LaporanCuti.html">
+                <a class="flex w-full items-center gap-3 px-4 py-2 text-sm text-[#111318] hover:bg-gray-100 dark:text-slate-200 dark:hover:bg-slate-700" href="AdminLeaveApproval.html">
                   <span class="material-symbols-outlined" style="font-size: 20px;">pending_actions</span>
                   <span>Persetujuan Cuti</span>
+                </a>
+                <a class="flex w-full items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-red-400 dark:hover:bg-slate-700" href="#">
+                  <span class="material-symbols-outlined" style="font-size: 20px;">logout</span>
+                  <span>Keluar</span>
                 </a>
               </div>
             </div>
@@ -101,7 +105,7 @@
     </header>
 
     <!-- Main Content -->
-    <main class="flex-1 w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+    <main class="flex-1 w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8 pb-24">
       
       <!-- Page Header -->
       <div class="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
@@ -109,12 +113,9 @@
           <h2 class="font-display text-2xl font-bold tracking-tight text-[#111318] dark:text-white sm:text-3xl">Daftar Perawat Aktif</h2>
           <p class="mt-1 text-base text-[#616f89] dark:text-slate-400">Kelola data kepegawaian dan status aktif perawat.</p>
         </div>
-        <div class="flex gap-3">
-        </div>
       </div>
 
       <!-- Stats Cards -->
-      <!-- Updated grid to 3 columns since one card was removed -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
         <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm flex items-center gap-4">
            <div class="p-3 rounded-full bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400">
@@ -173,7 +174,6 @@
             </select>
 
             <select id="statusFilter" onchange="filterTable()" class="rounded-lg border-gray-300 bg-white text-sm text-gray-700 focus:border-primary focus:ring-primary dark:bg-slate-700 dark:border-slate-600 dark:text-white py-2 px-3">
-              <!-- Removed "Semua Status" option -->
               <option value="Aktif" selected>Aktif</option>
               <option value="Cuti">Sedang Cuti</option>
               <option value="Non-Aktif">Non-Aktif</option>
@@ -221,81 +221,10 @@
 
     </main>
 
-    <!-- Modal Detail Perawat -->
-    <div id="detailModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity" onclick="closeDetailModal()">
-      <div class="relative bg-white dark:bg-slate-800 rounded-xl max-w-lg w-full shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0" id="modalContent" onclick="event.stopPropagation()">
-        
-        <!-- Header with colored background -->
-        <div class="h-24 bg-gradient-to-r from-lazuli-blue to-medical-green relative">
-           <button onclick="closeDetailModal()" class="absolute top-4 right-4 text-white/80 hover:text-white">
-             <span class="material-symbols-outlined">close</span>
-           </button>
-        </div>
-        
-        <!-- Profile Content -->
-        <div class="px-6 pb-6 relative">
-           <!-- Avatar -->
-           <div class="absolute -top-12 left-6">
-             <div class="h-24 w-24 rounded-full border-4 border-white dark:border-slate-800 bg-white shadow-md flex items-center justify-center text-3xl font-bold text-primary" id="modalAvatar">
-               JD
-             </div>
-           </div>
-           
-           <div class="mt-14 flex justify-between items-start">
-             <div>
-               <h3 class="text-xl font-bold text-gray-900 dark:text-white" id="modalName">Nama Perawat</h3>
-               <p class="text-sm text-gray-500 dark:text-slate-400" id="modalNIP">NIP: 12345678</p>
-             </div>
-             <span class="inline-flex items-center gap-1 rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400" id="modalStatus">
-               Aktif
-             </span>
-           </div>
-
-           <div class="mt-6 space-y-4">
-             <div class="grid grid-cols-2 gap-4">
-               <div class="bg-gray-50 dark:bg-slate-700/50 p-3 rounded-lg">
-                 <p class="text-xs text-gray-500 dark:text-slate-400 uppercase tracking-wide">Departemen</p>
-                 <p class="font-medium text-gray-900 dark:text-white mt-1" id="modalDept">IGD</p>
-               </div>
-               <div class="bg-gray-50 dark:bg-slate-700/50 p-3 rounded-lg">
-                 <p class="text-xs text-gray-500 dark:text-slate-400 uppercase tracking-wide">Jabatan</p>
-                 <p class="font-medium text-gray-900 dark:text-white mt-1" id="modalRole">Kepala Perawat</p>
-               </div>
-             </div>
-
-             <div>
-               <h4 class="text-sm font-semibold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
-                 <span class="material-symbols-outlined text-[18px] text-gray-400">contact_phone</span>
-                 Kontak & Info
-               </h4>
-               <div class="bg-gray-50 dark:bg-slate-700/50 p-4 rounded-lg space-y-2 text-sm">
-                 <div class="flex justify-between">
-                   <span class="text-gray-500 dark:text-slate-400">Email:</span>
-                   <span class="text-gray-900 dark:text-white font-medium" id="modalEmail">email@example.com</span>
-                 </div>
-                 <div class="flex justify-between">
-                   <span class="text-gray-500 dark:text-slate-400">No. Telepon:</span>
-                   <span class="text-gray-900 dark:text-white font-medium" id="modalPhone">0812-3456-7890</span>
-                 </div>
-                 <div class="flex justify-between">
-                   <span class="text-gray-500 dark:text-slate-400">Tanggal Bergabung:</span>
-                   <span class="text-gray-900 dark:text-white font-medium">10 Jan 2020</span>
-                 </div>
-               </div>
-             </div>
-           </div>
-
-           <div class="mt-6 flex gap-3">
-             <button class="flex-1 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium text-sm dark:bg-slate-700 dark:text-white dark:border-slate-600 dark:hover:bg-slate-600">
-               Edit Profil
-             </button>
-             <button class="flex-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 font-medium text-sm">
-               Lihat Jadwal
-             </button>
-           </div>
-        </div>
-      </div>
-    </div>
+    <!-- Floating Action Button (FAB) for Add Nurse -->
+    <button onclick="alert('Buka Modal Tambah Perawat')" class="fixed bottom-8 right-8 z-30 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-white shadow-lg hover:bg-primary/90 hover:scale-105 hover:shadow-xl focus:outline-none focus:ring-4 focus:ring-primary/50 transition-all duration-300 group">
+      <span class="material-symbols-outlined text-[28px] transition-transform duration-300 group-hover:rotate-90">add</span>
+    </button>
 
     <script>
       // Mock Data Perawat
@@ -323,8 +252,8 @@
           else statusBadgeClass = "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400";
 
           const row = document.createElement('tr');
-          row.className = "hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors border-b border-gray-100 dark:border-slate-700/50 last:border-0 cursor-pointer";
-          row.onclick = () => openDetailModal(nurse);
+          row.className = "hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors border-b border-gray-100 dark:border-slate-700/50 last:border-0";
+          // row.onclick removed to disable modal
 
           row.innerHTML = `
             <td class="px-6 py-4">
@@ -379,48 +308,6 @@
         });
 
         initTable(filteredData);
-      }
-
-      // Modal Logic
-      function openDetailModal(nurse) {
-        const modal = document.getElementById('detailModal');
-        const modalContent = document.getElementById('modalContent');
-        
-        // Populate Data
-        document.getElementById('modalName').innerText = nurse.name;
-        document.getElementById('modalNIP').innerText = "NIP: " + nurse.nip;
-        document.getElementById('modalDept').innerText = nurse.dept;
-        document.getElementById('modalRole').innerText = nurse.role;
-        document.getElementById('modalPhone').innerText = nurse.phone;
-        document.getElementById('modalEmail').innerText = nurse.email;
-        document.getElementById('modalStatus').innerText = nurse.status;
-        
-        // Avatar
-        const initials = nurse.name.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase();
-        document.getElementById('modalAvatar').innerText = initials;
-
-        // Show
-        modal.classList.remove('hidden');
-        // Small delay for animation
-        setTimeout(() => {
-          modal.classList.remove('opacity-0');
-          modalContent.classList.remove('scale-95', 'opacity-0');
-          modalContent.classList.add('scale-100', 'opacity-100');
-        }, 10);
-      }
-
-      function closeDetailModal() {
-        const modal = document.getElementById('detailModal');
-        const modalContent = document.getElementById('modalContent');
-        
-        // Animate Out
-        modalContent.classList.remove('scale-100', 'opacity-100');
-        modalContent.classList.add('scale-95', 'opacity-0');
-        modal.classList.add('opacity-0');
-        
-        setTimeout(() => {
-          modal.classList.add('hidden');
-        }, 300);
       }
 
       // Initialize - Run filter immediately to respect default "Aktif" selection

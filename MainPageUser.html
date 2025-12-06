@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Dashboard Utama</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#2b6cee",
+              "background-light": "#f6f6f8",
+              "background-dark": "#101622",
+              "lazuli-blue": "#26619C",
+              "medical-green": "#2A9D8F",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem",
+              "lg": "0.5rem",
+              "xl": "0.75rem",
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        font-size: 24px;
+      }
+      /* Custom scrollbar for table */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+      /* Pulse animation for live indicator */
+      @keyframes pulse-green {
+        0% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0.7); }
+        70% { box-shadow: 0 0 0 10px rgba(74, 222, 128, 0); }
+        100% { box-shadow: 0 0 0 0 rgba(74, 222, 128, 0); }
+      }
+      .live-indicator {
+        animation: pulse-green 2s infinite;
+      }
+    </style>
+  </head>
+  <body class="font-display bg-background-light dark:bg-background-dark">
+    <div class="flex min-h-screen w-full flex-col">
+      
+      <!-- Top Navigation Header -->
+      <header class="sticky top-0 z-10 w-full bg-gradient-to-r from-lazuli-blue to-medical-green shadow-md">
+        <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+          
+          <!-- Logo & Brand -->
+          <div class="flex items-center gap-4">
+            <div class="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
+              <span class="material-symbols-outlined text-white" style="font-size: 28px; font-variation-settings: 'wght' 300;">health_and_safety</span>
+            </div>
+            <h1 class="font-display text-xl font-bold text-white">LaravelGila</h1>
+          </div>
+
+          <!-- User Menu & Actions -->
+          <div class="flex items-center gap-4">
+            <span class="hidden text-sm text-white/90 sm:block">Selamat datang, Dr. Aisha!</span>
+            
+            <!-- Dropdown Menu Container -->
+            <div class="group relative">
+              <button class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50">
+                <span class="material-symbols-outlined">menu</span>
+              </button>
+              
+              <!-- Dropdown Content -->
+              <div class="absolute right-0 mt-2 w-56 origin-top-right scale-95 transform rounded-lg bg-white opacity-0 shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-200 ease-in-out group-hover:scale-100 group-hover:opacity-100 dark:bg-slate-800 dark:ring-white/10" role="menu">
+                <div class="py-1">
+                  <a class="flex w-full items-center gap-3 px-4 py-2 text-sm text-[#111318] hover:bg-gray-100 dark:text-slate-200 dark:hover:bg-slate-700" href="AjukanCuti.html" role="menuitem">
+                    <span class="material-symbols-outlined" style="font-size: 20px;">event_busy</span>
+                    <span>Ajukan Cuti</span>
+                  </a>
+                  <a class="flex w-full items-center gap-3 px-4 py-2 text-sm text-[#111318] hover:bg-gray-100 dark:text-slate-200 dark:hover:bg-slate-700" href="#" role="menuitem">
+                    <span class="material-symbols-outlined" style="font-size: 20px;">groups</span>
+                    <span>Daftar perawat aktif</span>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Content Area -->
+      <main class="flex-1">
+        <div class="mx-auto max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+          
+          <!-- LIVE STATUS WIDGET -->
+          <div class="mb-8 overflow-hidden rounded-2xl bg-white shadow-lg dark:bg-slate-800 ring-1 ring-gray-900/5">
+            <div class="bg-gradient-to-r from-slate-900 to-slate-800 px-6 py-4">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                  <div class="relative flex h-3 w-3">
+                    <span class="live-indicator absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span class="relative inline-flex h-3 w-3 rounded-full bg-green-500"></span>
+                  </div>
+                  <h3 class="text-base font-semibold text-white tracking-wide uppercase">Status Jaga Saat Ini</h3>
+                </div>
+                <div class="text-right">
+                   <p class="text-xs font-medium text-slate-400 uppercase tracking-wider">Waktu Sekarang</p>
+                </div>
+              </div>
+            </div>
+            <div class="p-6">
+              <div class="flex flex-col gap-6 md:flex-row md:items-start md:justify-between">
+                
+                <!-- Time & Shift Info -->
+                <div class="flex-1">
+                  <div class="flex items-baseline gap-2">
+                    <h2 id="live-clock" class="text-4xl font-extrabold tracking-tight text-gray-900 dark:text-white font-mono">--:--</h2>
+                    <span id="live-ampm" class="text-xl font-medium text-gray-500 dark:text-slate-400">WIB</span>
+                  </div>
+                  <p id="live-date" class="text-lg font-medium text-primary mt-1">-- --- ----</p>
+                  
+                  <div class="mt-4 inline-flex items-center gap-2 rounded-full bg-blue-50 px-3 py-1 text-sm font-semibold text-primary dark:bg-blue-900/30 dark:text-blue-200">
+                    <span class="material-symbols-outlined text-[18px]">schedule</span>
+                    <span id="current-shift-name">Loading...</span>
+                  </div>
+                </div>
+
+                <!-- Active Nurses List -->
+                <div class="flex-[1.5] border-l border-gray-100 pl-0 md:pl-6 dark:border-slate-700">
+                  <p class="mb-3 text-sm font-medium text-gray-500 dark:text-slate-400">Tim Medis Bertugas (Sesuai Jadwal):</p>
+                  <div class="grid grid-cols-1 gap-3 sm:grid-cols-2" id="on-duty-list">
+                    <!-- Dynamic List -->
+                    <!-- Content will be injected by JS -->
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <!-- Page Header -->
+          <div class="mb-6">
+            <h2 class="font-display text-2xl font-bold tracking-tight text-[#111318] dark:text-white sm:text-3xl">Jadwal Mingguan</h2>
+            <p class="mt-1 text-base text-[#616f89] dark:text-slate-400">Pilih kartu hari untuk melihat detail lengkap.</p>
+          </div>
+
+          <!-- Weekly Schedule Grid -->
+          <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            
+            <!-- Senin -->
+            <div onclick="openModal('Senin')" class="group cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:border-primary hover:shadow-lg dark:border-slate-700 dark:bg-slate-800 dark:hover:border-primary">
+              <div class="flex h-full flex-col justify-between p-6">
+                <div class="flex items-center justify-between">
+                  <span class="rounded-lg bg-blue-50 px-3 py-1 text-sm font-semibold text-primary dark:bg-blue-900/30 dark:text-blue-200">Hari Kerja</span>
+                  <span class="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">calendar_month</span>
+                </div>
+                <div class="mt-4">
+                  <h3 class="text-2xl font-bold text-[#111318] dark:text-white group-hover:text-primary">Senin</h3>
+                </div>
+              </div>
+            </div>
+
+            <!-- Selasa -->
+            <div onclick="openModal('Selasa')" class="group cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:border-primary hover:shadow-lg dark:border-slate-700 dark:bg-slate-800 dark:hover:border-primary">
+              <div class="flex h-full flex-col justify-between p-6">
+                <div class="flex items-center justify-between">
+                  <span class="rounded-lg bg-blue-50 px-3 py-1 text-sm font-semibold text-primary dark:bg-blue-900/30 dark:text-blue-200">Hari Kerja</span>
+                  <span class="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">calendar_month</span>
+                </div>
+                <div class="mt-4">
+                  <h3 class="text-2xl font-bold text-[#111318] dark:text-white group-hover:text-primary">Selasa</h3>
+                </div>
+              </div>
+            </div>
+
+            <!-- Rabu -->
+            <div onclick="openModal('Rabu')" class="group cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:border-primary hover:shadow-lg dark:border-slate-700 dark:bg-slate-800 dark:hover:border-primary">
+              <div class="flex h-full flex-col justify-between p-6">
+                <div class="flex items-center justify-between">
+                  <span class="rounded-lg bg-blue-50 px-3 py-1 text-sm font-semibold text-primary dark:bg-blue-900/30 dark:text-blue-200">Hari Kerja</span>
+                  <span class="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">calendar_month</span>
+                </div>
+                <div class="mt-4">
+                  <h3 class="text-2xl font-bold text-[#111318] dark:text-white group-hover:text-primary">Rabu</h3>
+                </div>
+              </div>
+            </div>
+
+            <!-- Kamis -->
+            <div onclick="openModal('Kamis')" class="group cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:border-primary hover:shadow-lg dark:border-slate-700 dark:bg-slate-800 dark:hover:border-primary">
+              <div class="flex h-full flex-col justify-between p-6">
+                <div class="flex items-center justify-between">
+                  <span class="rounded-lg bg-blue-50 px-3 py-1 text-sm font-semibold text-primary dark:bg-blue-900/30 dark:text-blue-200">Hari Kerja</span>
+                  <span class="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">calendar_month</span>
+                </div>
+                <div class="mt-4">
+                  <h3 class="text-2xl font-bold text-[#111318] dark:text-white group-hover:text-primary">Kamis</h3>
+                </div>
+              </div>
+            </div>
+
+            <!-- Jumat -->
+            <div onclick="openModal('Jumat')" class="group cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:border-primary hover:shadow-lg dark:border-slate-700 dark:bg-slate-800 dark:hover:border-primary">
+              <div class="flex h-full flex-col justify-between p-6">
+                <div class="flex items-center justify-between">
+                  <span class="rounded-lg bg-teal-50 px-3 py-1 text-sm font-semibold text-teal-600 dark:bg-teal-900/30 dark:text-teal-200">Shalat Jumat</span>
+                  <span class="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">mosque</span>
+                </div>
+                <div class="mt-4">
+                  <h3 class="text-2xl font-bold text-[#111318] dark:text-white group-hover:text-primary">Jumat</h3>
+                </div>
+              </div>
+            </div>
+
+            <!-- Sabtu -->
+            <div onclick="openModal('Sabtu')" class="group cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:border-primary hover:shadow-lg dark:border-slate-700 dark:bg-slate-800 dark:hover:border-primary">
+              <div class="flex h-full flex-col justify-between p-6">
+                <div class="flex items-center justify-between">
+                  <span class="rounded-lg bg-orange-50 px-3 py-1 text-sm font-semibold text-orange-600 dark:bg-orange-900/30 dark:text-orange-200">Akhir Pekan</span>
+                  <span class="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">weekend</span>
+                </div>
+                <div class="mt-4">
+                  <h3 class="text-2xl font-bold text-[#111318] dark:text-white group-hover:text-primary">Sabtu</h3>
+                </div>
+              </div>
+            </div>
+
+            <!-- Minggu -->
+            <div onclick="openModal('Minggu')" class="group cursor-pointer overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm transition-all hover:border-primary hover:shadow-lg dark:border-slate-700 dark:bg-slate-800 dark:hover:border-primary">
+              <div class="flex h-full flex-col justify-between p-6">
+                <div class="flex items-center justify-between">
+                  <span class="rounded-lg bg-orange-50 px-3 py-1 text-sm font-semibold text-orange-600 dark:bg-orange-900/30 dark:text-orange-200">Akhir Pekan</span>
+                  <span class="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">weekend</span>
+                </div>
+                <div class="mt-4">
+                  <h3 class="text-2xl font-bold text-[#111318] dark:text-white group-hover:text-primary">Minggu</h3>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </main>
+    </div>
+
+    <!-- Modal Popup -->
+    <div id="scheduleModal" class="relative z-50 hidden" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+      <!-- Backdrop -->
+      <div class="fixed inset-0 bg-gray-900/75 bg-opacity-75 transition-opacity backdrop-blur-sm"></div>
+
+      <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+        <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+          
+          <!-- Modal Panel -->
+          <div class="relative transform overflow-hidden rounded-xl bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-4xl dark:bg-slate-800">
+            
+            <!-- Modal Header -->
+            <div class="flex items-center justify-between border-b border-gray-200 px-4 py-4 dark:border-slate-700 sm:px-6">
+              <div class="flex items-center gap-3">
+                <div class="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary dark:bg-primary/20">
+                  <span class="material-symbols-outlined">calendar_month</span>
+                </div>
+                <div>
+                  <h3 class="text-lg font-bold leading-6 text-gray-900 dark:text-white" id="modal-title">Detail Jadwal</h3>
+                  <p class="text-sm text-gray-500 dark:text-slate-400" id="modal-subtitle">Daftar perawat yang bertugas.</p>
+                </div>
+              </div>
+              <button onclick="closeModal()" type="button" class="rounded-md bg-white text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:bg-slate-800 dark:hover:text-gray-300">
+                <span class="sr-only">Close</span>
+                <span class="material-symbols-outlined">close</span>
+              </button>
+            </div>
+
+            <!-- Modal Body (Table) -->
+            <div class="px-4 py-5 sm:p-6">
+              <div class="overflow-hidden rounded-lg border border-gray-200 dark:border-slate-700">
+                <div class="max-h-[60vh] overflow-y-auto custom-scrollbar">
+                  <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+                    <thead class="bg-gray-50 sticky top-0 z-10 dark:bg-slate-700/50">
+                      <tr>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-300">Nama Perawat</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-300">Jabatan</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-300">Jam Pelayanan</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-300">Departemen</th>
+                        <th scope="col" class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-300">Status Cuti</th>
+                      </tr>
+                    </thead>
+                    <tbody id="modalTableBody" class="divide-y divide-gray-200 bg-white dark:divide-slate-700 dark:bg-slate-800">
+                      <!-- Rows will be injected via JS -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="bg-gray-50 px-4 py-3 dark:bg-slate-700/30 sm:flex sm:flex-row-reverse sm:px-6">
+              <button type="button" onclick="closeModal()" class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto dark:bg-slate-700 dark:text-white dark:ring-slate-600 dark:hover:bg-slate-600">
+                Tutup
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts for Logic -->
+    <script>
+      // Mock Data
+      const nurseData = [
+        { name: "Siti Aminah", role: "Kepala Perawat", dept: "IGD", status: "Hadir" },
+        { name: "Budi Santoso", role: "Perawat Senior", dept: "ICU", status: "Hadir" },
+        { name: "Rina Wijaya", role: "Perawat Junior", dept: "Rawat Inap", status: "Cuti Sakit" },
+        { name: "Dewi Sartika", role: "Perawat Anak", dept: "Poli Anak", status: "Hadir" },
+        { name: "Andi Pratama", role: "Asisten Perawat", dept: "Umum", status: "Hadir" },
+        { name: "Lestari Putri", role: "Perawat Senior", dept: "Bedah", status: "Cuti Tahunan" },
+        { name: "Fajar Nugraha", role: "Perawat Junior", dept: "IGD", status: "Hadir" },
+        { name: "Maya Indah", role: "Perawat Gigi", dept: "Poli Gigi", status: "Hadir" },
+      ];
+
+      // Cache object to store generated schedules for consistency
+      const scheduleCache = {};
+
+      // Helper to get random time
+      const shifts = ["07:00 - 15:00", "15:00 - 23:00", "23:00 - 07:00"];
+
+      function getRandomShift() {
+        return shifts[Math.floor(Math.random() * shifts.length)];
+      }
+
+      // --- Centralized Schedule Logic ---
+      
+      // Get (or generate and cache) schedule for a specific day
+      function getScheduleForDay(day) {
+        if (scheduleCache[day]) {
+            return scheduleCache[day];
+        }
+
+        // Generate shifts once per session for this day
+        // Clone nurseData to avoid mutation references issues if complex
+        const dailyStaff = nurseData.map(n => ({...n})); 
+        
+        const staffWithShifts = dailyStaff.map(nurse => ({
+          ...nurse,
+          shift: getRandomShift()
+        }));
+        
+        // Sort by shift time
+        staffWithShifts.sort((a, b) => a.shift.localeCompare(b.shift));
+        
+        // Store in cache
+        scheduleCache[day] = staffWithShifts;
+        return staffWithShifts;
+      }
+
+      // Determine the current shift string based on current hour
+      function getCurrentShift(hour) {
+        if (hour >= 7 && hour < 15) return "07:00 - 15:00";
+        if (hour >= 15 && hour < 23) return "15:00 - 23:00";
+        return "23:00 - 07:00"; // Night shift
+      }
+
+      // --- Logic End ---
+
+      // Initialize logic
+      document.addEventListener('DOMContentLoaded', () => {
+        // Start Live Clock and sync widget immediately
+        updateLiveStatus();
+        setInterval(updateLiveStatus, 1000);
+      });
+
+      // Unified function for Clock & Widget Update
+      function updateLiveStatus() {
+        const now = new Date();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        const hourInt = now.getHours();
+        
+        // 1. Update Clock
+        document.getElementById('live-clock').innerText = `${hours}:${minutes}`;
+        document.getElementById('live-ampm').innerText = "WIB";
+
+        // 2. Update Date String
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('live-date').innerText = now.toLocaleDateString('id-ID', options);
+
+        // 3. Determine Shift Label & Value
+        const currentShiftValue = getCurrentShift(hourInt);
+        let shiftLabel = "Shift Malam";
+        if (currentShiftValue.startsWith("07")) shiftLabel = "Shift Pagi";
+        else if (currentShiftValue.startsWith("15")) shiftLabel = "Shift Siang";
+        
+        document.getElementById('current-shift-name').innerText = `${shiftLabel} (${currentShiftValue})`;
+
+        // 4. Update On-Duty List based on Actual Schedule
+        // Get day name (e.g., "Senin", "Jumat")
+        const currentDayName = now.toLocaleDateString('id-ID', { weekday: 'long' });
+        
+        // Retrieve schedule for TODAY
+        const todaySchedule = getScheduleForDay(currentDayName);
+        
+        // Filter for nurses working CURRENT SHIFT
+        const onDutyNurses = todaySchedule.filter(n => n.shift === currentShiftValue);
+        
+        renderOnDutyList(onDutyNurses);
+      }
+
+      function renderOnDutyList(nurses) {
+        const container = document.getElementById('on-duty-list');
+        container.innerHTML = '';
+        
+        if (nurses.length === 0) {
+            container.innerHTML = `<p class="text-sm text-gray-500 italic col-span-2">Tidak ada perawat terjadwal saat ini.</p>`;
+            return;
+        }
+
+        const colors = [
+            { bg: 'bg-indigo-100 dark:bg-indigo-900/50', text: 'text-indigo-600 dark:text-indigo-300' },
+            { bg: 'bg-pink-100 dark:bg-pink-900/50', text: 'text-pink-600 dark:text-pink-300' },
+            { bg: 'bg-yellow-100 dark:bg-yellow-900/50', text: 'text-yellow-600 dark:text-yellow-300' },
+            { bg: 'bg-green-100 dark:bg-green-900/50', text: 'text-green-600 dark:text-green-300' }
+        ];
+
+        // Limit to 4 for display
+        const displayNurses = nurses.slice(0, 4);
+
+        displayNurses.forEach((nurse, index) => {
+            const initials = nurse.name.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase();
+            const color = colors[index % colors.length];
+            const statusColor = getStatusColor(nurse.status);
+            
+            const html = `
+                <div class="flex items-center justify-between rounded-lg bg-gray-50 p-2 dark:bg-slate-700/50">
+                  <div class="flex items-center gap-3">
+                      <div class="flex h-8 w-8 items-center justify-center rounded-full ${color.bg} ${color.text}">
+                        <span class="font-bold text-xs">${initials}</span>
+                      </div>
+                      <div>
+                        <p class="text-sm font-semibold text-gray-900 dark:text-white">${nurse.name}</p>
+                        <p class="text-xs text-gray-500 dark:text-slate-400">${nurse.role}</p>
+                      </div>
+                  </div>
+                  <span class="inline-flex rounded-full px-2 py-0.5 text-[10px] font-semibold ${statusColor}">
+                    ${nurse.status}
+                  </span>
+                </div>
+            `;
+            container.innerHTML += html;
+        });
+        
+        // Optional: Show count if more than 4
+        if (nurses.length > 4) {
+             container.innerHTML += `<p class="text-xs text-gray-400 col-span-2 mt-1 text-center">+ ${nurses.length - 4} lainnya...</p>`;
+        }
+      }
+
+      function getStatusColor(status) {
+        if (status === 'Hadir') return 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300';
+        if (status === 'Cuti Sakit') return 'bg-red-100 text-red-800 dark:bg-red-900/30 dark:text-red-300';
+        return 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300';
+      }
+
+      // Updated openModal to use the Centralized Schedule
+      function openModal(day) {
+        const modal = document.getElementById('scheduleModal');
+        const title = document.getElementById('modal-title');
+        const tbody = document.getElementById('modalTableBody');
+
+        title.innerText = `Jadwal: ${day}`;
+        tbody.innerHTML = '';
+
+        // Retrieve Cached/Generated Schedule
+        const staffWithShifts = getScheduleForDay(day);
+
+        staffWithShifts.forEach(nurse => {
+          const row = `
+            <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
+              <td class="whitespace-nowrap px-6 py-4 text-sm font-medium text-gray-900 dark:text-white">${nurse.name}</td>
+              <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-slate-400">${nurse.role}</td>
+              <td class="whitespace-nowrap px-6 py-4">
+                <div class="flex flex-col">
+                  <span class="text-sm font-medium text-gray-900 dark:text-white font-mono">${nurse.shift}</span>
+                </div>
+              </td>
+              <td class="whitespace-nowrap px-6 py-4 text-sm text-gray-500 dark:text-slate-400">${nurse.dept}</td>
+              <td class="whitespace-nowrap px-6 py-4 text-sm">
+                <span class="inline-flex rounded-full px-2 text-xs font-semibold leading-5 ${getStatusColor(nurse.status)}">
+                  ${nurse.status}
+                </span>
+              </td>
+            </tr>
+          `;
+          tbody.innerHTML += row;
+        });
+
+        modal.classList.remove('hidden');
+      }
+
+      function closeModal() {
+        document.getElementById('scheduleModal').classList.add('hidden');
+      }
+
+      window.onclick = function(event) {
+        const modal = document.getElementById('scheduleModal');
+        if (event.target.classList.contains('backdrop-blur-sm')) {
+            closeModal();
+        }
+      }
+    </script>
+  </body>
+</html>

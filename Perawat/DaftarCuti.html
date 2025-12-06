@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html class="light" lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Pengajuan Cuti - MediShift</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#2b6cee",
+              "background-light": "#f6f6f8",
+              "background-dark": "#101622",
+              "lazuli-blue": "#26619C",
+              "medical-green": "#2A9D8F",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem",
+              "lg": "0.5rem",
+              "xl": "0.75rem",
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        font-size: 24px;
+      }
+      /* Custom scrollbar */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+      /* Fade in animation */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.3s ease-out forwards;
+      }
+    </style>
+  </head>
+  <body class="font-display bg-background-light dark:bg-background-dark min-h-screen flex flex-col">
+    
+    <!-- Top Navigation Header -->
+    <header class="sticky top-0 z-20 w-full bg-gradient-to-r from-lazuli-blue to-medical-green shadow-md">
+      <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex items-center gap-4">
+          <div class="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
+            <span class="material-symbols-outlined text-white" style="font-size: 28px; font-variation-settings: 'wght' 300;">health_and_safety</span>
+          </div>
+          <h1 class="font-display text-xl font-bold text-white">MediShift</h1>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <span class="hidden text-sm text-white/90 sm:block">Dr. Aisha (Dokter Umum)</span>
+          
+          <div class="group relative">
+            <button class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50">
+              <span class="material-symbols-outlined">menu</span>
+            </button>
+            <!-- Dropdown Menu -->
+            <div class="absolute right-0 mt-2 w-56 origin-top-right scale-95 transform rounded-lg bg-white opacity-0 shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-200 ease-in-out group-hover:scale-100 group-hover:opacity-100 dark:bg-slate-800 dark:ring-white/10" role="menu">
+              <div class="py-1">
+                <a class="flex w-full items-center gap-3 px-4 py-2 text-sm text-[#111318] hover:bg-gray-100 dark:text-slate-200 dark:hover:bg-slate-700" href="MainPageUser.html">
+                  <span class="material-symbols-outlined" style="font-size: 20px;">dashboard</span>
+                  <span>Dashboard Utama</span>
+                </a>
+                <a class="flex w-full items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-red-400 dark:hover:bg-slate-700" href="login.html">
+                  <span class="material-symbols-outlined" style="font-size: 20px;">logout</span>
+                  <span>Keluar</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      
+      <!-- Page Header -->
+      <div class="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h2 class="font-display text-2xl font-bold tracking-tight text-[#111318] dark:text-white sm:text-3xl">Pengajuan Cuti</h2>
+          <p class="mt-1 text-base text-[#616f89] dark:text-slate-400">Ajukan permohonan cuti dan pantau status persetujuan.</p>
+        </div>
+        <div class="flex gap-3">
+          <button onclick="window.location.href='MainPage.html'" class="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary dark:bg-slate-800 dark:text-slate-200 dark:border-slate-600 dark:hover:bg-slate-700">
+             <span class="material-symbols-outlined text-[20px]">arrow_back</span>
+             Kembali
+          </button>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        
+        <!-- Form Section (Left Column) -->
+        <div class="lg:col-span-1">
+          <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 overflow-hidden sticky top-24">
+            <div class="p-6 border-b border-gray-100 dark:border-slate-700 bg-gray-50/50 dark:bg-slate-800">
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white flex items-center gap-2">
+                <span class="material-symbols-outlined text-primary">edit_calendar</span>
+                Formulir Cuti
+              </h3>
+            </div>
+            
+            <form id="leaveForm" onsubmit="handleSubmitLeave(event)" class="p-6 space-y-5">
+              
+              <!-- Jenis Cuti -->
+              <div>
+                <label for="leaveType" class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-1">Jenis Cuti</label>
+                <select id="leaveType" required class="w-full rounded-lg border-gray-300 bg-white px-3 py-2.5 text-gray-900 focus:border-primary focus:ring-primary sm:text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white">
+                  <option value="Cuti Sakit">Cuti Sakit</option>
+                  <option value="Cuti Tahunan">Cuti Tahunan</option>
+                  <option value="Cuti Melahirkan">Cuti Melahirkan</option>
+                  <option value="Cuti Penting">Cuti Penting / Alasan Keluarga</option>
+                </select>
+              </div>
+
+              <!-- Tanggal Mulai -->
+              <div>
+                <label for="startDate" class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-1">Tanggal Mulai</label>
+                <input type="date" id="startDate" required class="w-full rounded-lg border-gray-300 bg-white px-3 py-2.5 text-gray-900 focus:border-primary focus:ring-primary sm:text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:placeholder-gray-400" />
+              </div>
+
+              <!-- Tanggal Selesai -->
+              <div>
+                <label for="endDate" class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-1">Tanggal Selesai</label>
+                <input type="date" id="endDate" required class="w-full rounded-lg border-gray-300 bg-white px-3 py-2.5 text-gray-900 focus:border-primary focus:ring-primary sm:text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:placeholder-gray-400" />
+              </div>
+
+              <!-- Alasan -->
+              <div>
+                <label for="reason" class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-1">Alasan Cuti</label>
+                <textarea id="reason" rows="3" required placeholder="Jelaskan alasan pengajuan cuti Anda..." class="w-full rounded-lg border-gray-300 bg-white px-3 py-2.5 text-gray-900 focus:border-primary focus:ring-primary sm:text-sm dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:placeholder-gray-400 resize-none"></textarea>
+              </div>
+
+              <!-- Bukti Foto -->
+              <div>
+                <label class="block text-sm font-semibold text-gray-700 dark:text-slate-300 mb-1">Bukti Foto / Surat Dokter</label>
+                <div class="mt-1 flex justify-center rounded-lg border border-dashed border-gray-300 px-6 py-6 dark:border-slate-600 bg-gray-50 dark:bg-slate-700/30 hover:bg-gray-100 dark:hover:bg-slate-700/50 transition-colors cursor-pointer relative">
+                  <div class="text-center">
+                    <span class="material-symbols-outlined mx-auto h-12 w-12 text-gray-300 dark:text-slate-500">cloud_upload</span>
+                    <div class="mt-2 flex text-sm text-gray-600 dark:text-slate-400 justify-center">
+                      <label for="file-upload" class="relative cursor-pointer rounded-md font-medium text-primary focus-within:outline-none focus-within:ring-2 focus-within:ring-primary focus-within:ring-offset-2 hover:text-primary/80">
+                        <span>Upload file</span>
+                        <input id="file-upload" name="file-upload" type="file" accept="image/*,.pdf" class="sr-only" onchange="handleFileSelect(this)">
+                      </label>
+                    </div>
+                    <p class="text-xs text-gray-500 dark:text-slate-500">PNG, JPG, PDF up to 5MB</p>
+                    <p id="fileNameDisplay" class="text-xs font-medium text-primary mt-2 hidden truncate max-w-[200px] mx-auto"></p>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Submit Button -->
+              <div class="pt-2">
+                <button type="submit" class="w-full flex justify-center items-center gap-2 rounded-lg bg-primary py-3 px-4 text-sm font-bold text-white shadow-sm hover:bg-primary/90 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 transition-all">
+                  <span class="material-symbols-outlined text-[20px]">send</span>
+                  Ajukan Permohonan
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+        <!-- History Table Section (Right Column) -->
+        <div class="lg:col-span-2 space-y-6">
+          
+          <!-- Stat Cards -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+             <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm">
+               <p class="text-xs text-gray-500 dark:text-slate-400">Total Cuti Tahun Ini</p>
+               <p class="text-xl font-bold text-gray-900 dark:text-white">12 Hari</p>
+             </div>
+             <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm">
+               <p class="text-xs text-gray-500 dark:text-slate-400">Sisa Cuti</p>
+               <p class="text-xl font-bold text-primary">8 Hari</p>
+             </div>
+             <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm">
+               <p class="text-xs text-gray-500 dark:text-slate-400">Menunggu</p>
+               <p class="text-xl font-bold text-yellow-600 dark:text-yellow-400">1</p>
+             </div>
+             <div class="bg-white dark:bg-slate-800 p-4 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm">
+               <p class="text-xs text-gray-500 dark:text-slate-400">Disetujui</p>
+               <p class="text-xl font-bold text-green-600 dark:text-green-400">3</p>
+             </div>
+          </div>
+
+          <!-- Table Container -->
+          <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 overflow-hidden">
+            <div class="px-6 py-5 border-b border-gray-100 dark:border-slate-700 flex justify-between items-center bg-gray-50/50 dark:bg-slate-800">
+              <h3 class="text-lg font-bold text-gray-900 dark:text-white">Riwayat Pengajuan Cuti</h3>
+              
+              <!-- Filter Dropdown (Visual Only) -->
+              <div class="relative">
+                <button class="flex items-center gap-1 text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-white focus:outline-none">
+                  Filter: Semua
+                  <span class="material-symbols-outlined text-[18px]">expand_more</span>
+                </button>
+              </div>
+            </div>
+            
+            <div class="overflow-x-auto">
+              <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700">
+                <thead class="bg-gray-50 dark:bg-slate-700/50">
+                  <tr>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-400">Tanggal Pengajuan</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-400">Jenis & Alasan</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-400">Jadwal Cuti</th>
+                    <th scope="col" class="px-6 py-3 text-center text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-400">Bukti</th>
+                    <th scope="col" class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-400">Status</th>
+                  </tr>
+                </thead>
+                <tbody id="leaveTableBody" class="divide-y divide-gray-200 bg-white dark:divide-slate-700 dark:bg-slate-800">
+                   <!-- Initial Data (Mock) -->
+                   <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-slate-400">
+                       10 Okt 2024
+                     </td>
+                     <td class="px-6 py-4">
+                       <div class="flex flex-col max-w-[200px]">
+                         <span class="text-sm font-semibold text-gray-900 dark:text-white">Cuti Sakit</span>
+                         <span class="text-xs text-gray-500 dark:text-slate-400 truncate">Demam tinggi dan flu berat</span>
+                       </div>
+                     </td>
+                     <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex flex-col">
+                          <span class="text-sm text-gray-900 dark:text-white font-medium">12 Okt - 14 Okt 2024</span>
+                          <span class="text-xs text-gray-500 dark:text-slate-400">3 Hari</span>
+                        </div>
+                     </td>
+                     <td class="px-6 py-4 whitespace-nowrap text-center">
+                        <button onclick="previewImage('https://via.placeholder.com/150?text=Surat+Sakit')" class="text-primary hover:text-primary/80 transition-colors" title="Lihat Bukti">
+                          <span class="material-symbols-outlined">image</span>
+                        </button>
+                     </td>
+                     <td class="px-6 py-4 whitespace-nowrap">
+                       <span class="inline-flex items-center gap-1 rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400">
+                         <span class="h-1.5 w-1.5 rounded-full bg-green-600 dark:bg-green-400"></span>
+                         Disetujui
+                       </span>
+                     </td>
+                   </tr>
+
+                   <tr class="hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors">
+                     <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-slate-400">
+                       01 Sep 2024
+                     </td>
+                     <td class="px-6 py-4">
+                       <div class="flex flex-col max-w-[200px]">
+                         <span class="text-sm font-semibold text-gray-900 dark:text-white">Cuti Tahunan</span>
+                         <span class="text-xs text-gray-500 dark:text-slate-400 truncate">Liburan keluarga ke Bali</span>
+                       </div>
+                     </td>
+                     <td class="px-6 py-4 whitespace-nowrap">
+                        <div class="flex flex-col">
+                          <span class="text-sm text-gray-900 dark:text-white font-medium">15 Sep - 20 Sep 2024</span>
+                          <span class="text-xs text-gray-500 dark:text-slate-400">5 Hari</span>
+                        </div>
+                     </td>
+                     <td class="px-6 py-4 whitespace-nowrap text-center">
+                        <span class="text-gray-300 dark:text-slate-600 material-symbols-outlined text-[20px]">image_not_supported</span>
+                     </td>
+                     <td class="px-6 py-4 whitespace-nowrap">
+                       <span class="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-0.5 text-xs font-medium text-gray-800 dark:bg-gray-700 dark:text-gray-300">
+                         <span class="h-1.5 w-1.5 rounded-full bg-gray-500"></span>
+                         Selesai
+                       </span>
+                     </td>
+                   </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-5 right-5 z-50 transform transition-all duration-300 translate-y-20 opacity-0">
+      <div class="flex items-center w-full max-w-xs p-4 space-x-3 text-gray-500 bg-white rounded-lg shadow-xl dark:text-gray-400 dark:bg-slate-800 border-l-4 border-primary" role="alert">
+        <div class="inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-primary bg-blue-100 rounded-lg dark:bg-blue-900 dark:text-blue-200">
+           <span class="material-symbols-outlined text-[20px]">send</span>
+        </div>
+        <div class="ml-3 text-sm font-normal">Pengajuan berhasil dikirim!</div>
+        <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-white text-gray-400 hover:text-gray-900 rounded-lg focus:ring-2 focus:ring-gray-300 p-1.5 hover:bg-gray-100 inline-flex items-center justify-center h-8 w-8 dark:text-gray-500 dark:hover:text-white dark:bg-gray-800 dark:hover:bg-gray-700" onclick="hideToast()">
+           <span class="material-symbols-outlined text-[16px]">close</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Image Preview Modal -->
+    <div id="imageModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4" onclick="closeImageModal()">
+      <div class="relative bg-white dark:bg-slate-800 rounded-lg max-w-3xl w-full max-h-[90vh] overflow-hidden shadow-2xl" onclick="event.stopPropagation()">
+        <div class="flex justify-between items-center p-4 border-b border-gray-200 dark:border-slate-700">
+          <h3 class="text-lg font-medium text-gray-900 dark:text-white">Bukti Lampiran</h3>
+          <button onclick="closeImageModal()" class="text-gray-500 hover:text-gray-700 dark:text-slate-400 dark:hover:text-white">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        <div class="p-4 flex justify-center bg-gray-100 dark:bg-slate-900">
+          <img id="modalImage" src="" alt="Bukti Cuti" class="max-h-[70vh] object-contain rounded-md" onerror="this.src='https://via.placeholder.com/400x300?text=Gagal+Memuat+Gambar'">
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Handle File Input Change (Display Filename)
+      function handleFileSelect(input) {
+        const fileNameDisplay = document.getElementById('fileNameDisplay');
+        if (input.files && input.files[0]) {
+          fileNameDisplay.textContent = input.files[0].name;
+          fileNameDisplay.classList.remove('hidden');
+        } else {
+          fileNameDisplay.classList.add('hidden');
+        }
+      }
+
+      // Handle Form Submit
+      function handleSubmitLeave(e) {
+        e.preventDefault();
+        
+        // Get Values
+        const type = document.getElementById('leaveType').value;
+        const start = document.getElementById('startDate').value;
+        const end = document.getElementById('endDate').value;
+        const reason = document.getElementById('reason').value;
+        const fileInput = document.getElementById('file-upload');
+        
+        // Basic Validation
+        if (!start || !end) {
+          alert("Mohon lengkapi tanggal cuti.");
+          return;
+        }
+
+        // Calculate Duration (Simple)
+        const date1 = new Date(start);
+        const date2 = new Date(end);
+        const diffTime = Math.abs(date2 - date1);
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24)) + 1; 
+
+        // Create Formatted Date Strings
+        const today = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+        const startStr = date1.toLocaleDateString('id-ID', { day: 'numeric', month: 'short' });
+        const endStr = date2.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+        
+        // Determine if file is uploaded (Mocking URL)
+        let imageBtnHtml = '<span class="text-gray-300 dark:text-slate-600 material-symbols-outlined text-[20px]">image_not_supported</span>';
+        if (fileInput.files && fileInput.files[0]) {
+           // Create a fake object URL for preview (in real app, this would be uploaded URL)
+           const fakeUrl = URL.createObjectURL(fileInput.files[0]);
+           imageBtnHtml = `<button onclick="previewImage('${fakeUrl}')" class="text-primary hover:text-primary/80 transition-colors"><span class="material-symbols-outlined">image</span></button>`;
+        }
+
+        // Add Row to Table
+        const tbody = document.getElementById('leaveTableBody');
+        const row = document.createElement('tr');
+        row.className = "animate-fade-in hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors";
+        row.innerHTML = `
+          <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-slate-400">
+            ${today}
+          </td>
+          <td class="px-6 py-4">
+            <div class="flex flex-col max-w-[200px]">
+              <span class="text-sm font-semibold text-gray-900 dark:text-white">${type}</span>
+              <span class="text-xs text-gray-500 dark:text-slate-400 truncate">${reason}</span>
+            </div>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+             <div class="flex flex-col">
+               <span class="text-sm text-gray-900 dark:text-white font-medium">${startStr} - ${endStr}</span>
+               <span class="text-xs text-gray-500 dark:text-slate-400">${diffDays} Hari</span>
+             </div>
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap text-center">
+             ${imageBtnHtml}
+          </td>
+          <td class="px-6 py-4 whitespace-nowrap">
+            <span class="inline-flex items-center gap-1 rounded-full bg-yellow-100 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400">
+              <span class="h-1.5 w-1.5 rounded-full bg-yellow-500 animate-pulse"></span>
+              Menunggu
+            </span>
+          </td>
+        `;
+        
+        // Insert at the top
+        tbody.insertBefore(row, tbody.firstChild);
+
+        // Show Toast
+        showToast();
+
+        // Reset Form
+        document.getElementById('leaveForm').reset();
+        document.getElementById('fileNameDisplay').classList.add('hidden');
+      }
+
+      // Toast Logic
+      function showToast() {
+        const toast = document.getElementById('toast');
+        toast.classList.remove('translate-y-20', 'opacity-0');
+        setTimeout(() => {
+          hideToast();
+        }, 3000);
+      }
+
+      function hideToast() {
+        const toast = document.getElementById('toast');
+        toast.classList.add('translate-y-20', 'opacity-0');
+      }
+
+      // Modal Logic
+      function previewImage(url) {
+        document.getElementById('modalImage').src = url;
+        document.getElementById('imageModal').classList.remove('hidden');
+      }
+
+      function closeImageModal() {
+        document.getElementById('imageModal').classList.add('hidden');
+      }
+    </script>
+  </body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html class="light" lang="id">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Daftar Perawat Aktif - Admin MediShift</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "primary": "#2b6cee",
+              "background-light": "#f6f6f8",
+              "background-dark": "#101622",
+              "lazuli-blue": "#26619C",
+              "medical-green": "#2A9D8F",
+            },
+            fontFamily: {
+              "display": ["Manrope", "sans-serif"]
+            },
+            borderRadius: {
+              "DEFAULT": "0.25rem",
+              "lg": "0.5rem",
+              "xl": "0.75rem",
+              "full": "9999px"
+            },
+          },
+        },
+      }
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        font-size: 24px;
+      }
+      /* Custom scrollbar */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+      /* Fade in animation */
+      @keyframes fadeIn {
+        from { opacity: 0; transform: translateY(10px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+      .animate-fade-in {
+        animation: fadeIn 0.3s ease-out forwards;
+      }
+    </style>
+  </head>
+  <body class="font-display bg-background-light dark:bg-background-dark min-h-screen flex flex-col">
+    
+    <!-- Top Navigation Header (Admin Version) -->
+    <header class="sticky top-0 z-20 w-full bg-gradient-to-r from-lazuli-blue to-medical-green shadow-md">
+      <div class="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex items-center gap-4">
+          <div class="flex h-10 w-10 items-center justify-center rounded-full bg-white/20">
+            <span class="material-symbols-outlined text-white" style="font-size: 28px; font-variation-settings: 'wght' 300;">health_and_safety</span>
+          </div>
+          <h1 class="font-display text-xl font-bold text-white">MediShift </h1>
+        </div>
+
+        <div class="flex items-center gap-4">
+          <span class="hidden text-sm text-white/90 sm:block">Admin Panel</span>
+          
+          <div class="group relative">
+            <button class="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus:outline-none focus:ring-2 focus:ring-white/50">
+              <span class="material-symbols-outlined">settings</span>
+            </button>
+            <!-- Dropdown Menu -->
+            <div class="absolute right-0 mt-2 w-56 origin-top-right scale-95 transform rounded-lg bg-white opacity-0 shadow-lg ring-1 ring-black ring-opacity-5 transition-all duration-200 ease-in-out group-hover:scale-100 group-hover:opacity-100 dark:bg-slate-800 dark:ring-white/10" role="menu">
+              <div class="py-1">
+                <a class="flex w-full items-center gap-3 px-4 py-2 text-sm text-[#111318] hover:bg-gray-100 dark:text-slate-200 dark:hover:bg-slate-700" href="MainPageUser.html">
+                  <span class="material-symbols-outlined" style="font-size: 20px;">dashboard</span>
+                  <span>Ke Dashboard</span>
+                </a>
+                <a class="flex w-full items-center gap-3 px-4 py-2 text-sm text-red-600 hover:bg-gray-100 dark:text-red-400 dark:hover:bg-slate-700" href="#">
+                  <span class="material-symbols-outlined" style="font-size: 20px;">logout</span>
+                  <span>Keluar</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-1 w-full max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8">
+      
+      <!-- Page Header -->
+      <div class="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div>
+          <h2 class="font-display text-2xl font-bold tracking-tight text-[#111318] dark:text-white sm:text-3xl">Daftar Perawat Aktif</h2>
+          <p class="mt-1 text-base text-[#616f89] dark:text-slate-400">Kelola data kepegawaian dan status aktif perawat.</p>
+        </div>
+      </div>
+
+      <!-- Stats Cards -->
+      <!-- Updated grid to 3 columns since one card was removed -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+        <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm flex items-center gap-4">
+           <div class="p-3 rounded-full bg-blue-50 text-blue-600 dark:bg-blue-900/20 dark:text-blue-400">
+             <span class="material-symbols-outlined">groups</span>
+           </div>
+           <div>
+             <p class="text-xs font-medium text-gray-500 dark:text-slate-400">Total Perawat</p>
+             <p class="text-xl font-bold text-gray-900 dark:text-white">24</p>
+           </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm flex items-center gap-4">
+           <div class="p-3 rounded-full bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-400">
+             <span class="material-symbols-outlined">how_to_reg</span>
+           </div>
+           <div>
+             <p class="text-xs font-medium text-gray-500 dark:text-slate-400">Status Aktif</p>
+             <p class="text-xl font-bold text-gray-900 dark:text-white">21</p>
+           </div>
+        </div>
+        <div class="bg-white dark:bg-slate-800 p-5 rounded-xl border border-gray-100 dark:border-slate-700 shadow-sm flex items-center gap-4">
+           <div class="p-3 rounded-full bg-yellow-50 text-yellow-600 dark:bg-yellow-900/20 dark:text-yellow-400">
+             <span class="material-symbols-outlined">event_busy</span>
+           </div>
+           <div>
+             <p class="text-xs font-medium text-gray-500 dark:text-slate-400">Sedang Cuti</p>
+             <p class="text-xl font-bold text-gray-900 dark:text-white">3</p>
+           </div>
+        </div>
+      </div>
+
+      <!-- Main Content Container -->
+      <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-gray-100 dark:border-slate-700 overflow-hidden">
+        
+        <!-- Filters Toolbar -->
+        <div class="p-5 border-b border-gray-100 dark:border-slate-700 flex flex-col md:flex-row md:items-center md:justify-between gap-4 bg-gray-50/50 dark:bg-slate-800">
+          
+          <!-- Search -->
+          <div class="relative w-full md:w-72">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
+              <span class="material-symbols-outlined text-[20px]">search</span>
+            </span>
+            <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Cari nama atau NIP..." class="pl-10 pr-4 py-2 w-full rounded-lg border-gray-300 bg-white text-sm text-gray-900 focus:border-primary focus:ring-primary dark:bg-slate-700 dark:border-slate-600 dark:text-white dark:placeholder-gray-400">
+          </div>
+
+          <!-- Filters -->
+          <div class="flex flex-wrap gap-2">
+            <select id="deptFilter" onchange="filterTable()" class="rounded-lg border-gray-300 bg-white text-sm text-gray-700 focus:border-primary focus:ring-primary dark:bg-slate-700 dark:border-slate-600 dark:text-white py-2 px-3">
+              <option value="">Semua Departemen</option>
+              <option value="IGD">IGD</option>
+              <option value="ICU">ICU</option>
+              <option value="Rawat Inap">Rawat Inap</option>
+              <option value="Poli Anak">Poli Anak</option>
+              <option value="Poli Gigi">Poli Gigi</option>
+              <option value="Bedah">Bedah</option>
+              <option value="Umum">Umum</option>
+            </select>
+
+            <select id="statusFilter" onchange="filterTable()" class="rounded-lg border-gray-300 bg-white text-sm text-gray-700 focus:border-primary focus:ring-primary dark:bg-slate-700 dark:border-slate-600 dark:text-white py-2 px-3">
+              <!-- Removed "Semua Status" option -->
+              <option value="Aktif" selected>Aktif</option>
+              <option value="Cuti">Sedang Cuti</option>
+              <option value="Non-Aktif">Non-Aktif</option>
+            </select>
+          </div>
+        </div>
+        
+        <!-- Table -->
+        <div class="overflow-x-auto">
+          <table class="min-w-full divide-y divide-gray-200 dark:divide-slate-700" id="nursesTable">
+            <thead class="bg-gray-50 dark:bg-slate-700/50">
+              <tr>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-400">Nama & NIP</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-400">Departemen</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-400">Jabatan</th>
+                <th scope="col" class="px-6 py-3 text-left text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-400">Kontak</th>
+                <th scope="col" class="px-6 py-3 text-center text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-400">Status</th>
+                <th scope="col" class="px-6 py-3 text-right text-xs font-bold uppercase tracking-wider text-gray-500 dark:text-slate-400">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="nursesTableBody" class="divide-y divide-gray-200 bg-white dark:divide-slate-700 dark:bg-slate-800">
+               <!-- Rows injected by JS -->
+            </tbody>
+          </table>
+        </div>
+        
+        <!-- Pagination -->
+        <div class="px-6 py-4 border-t border-gray-100 dark:border-slate-700 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+           <p class="text-sm text-gray-500 dark:text-slate-400">Menampilkan <span class="font-medium text-gray-900 dark:text-white">1</span> sampai <span class="font-medium text-gray-900 dark:text-white">8</span> dari <span class="font-medium text-gray-900 dark:text-white">24</span> data</p>
+           <nav class="isolate inline-flex -space-x-px rounded-md shadow-sm" aria-label="Pagination">
+             <a href="#" class="relative inline-flex items-center rounded-l-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 dark:ring-slate-600 dark:hover:bg-slate-700">
+               <span class="sr-only">Previous</span>
+               <span class="material-symbols-outlined text-[20px]">chevron_left</span>
+             </a>
+             <a href="#" aria-current="page" class="relative z-10 inline-flex items-center bg-primary px-4 py-2 text-sm font-semibold text-white focus:z-20 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary">1</a>
+             <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 dark:text-white dark:ring-slate-600 dark:hover:bg-slate-700">2</a>
+             <a href="#" class="relative inline-flex items-center px-4 py-2 text-sm font-semibold text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 dark:text-white dark:ring-slate-600 dark:hover:bg-slate-700">3</a>
+             <a href="#" class="relative inline-flex items-center rounded-r-md px-2 py-2 text-gray-400 ring-1 ring-inset ring-gray-300 hover:bg-gray-50 focus:z-20 focus:outline-offset-0 dark:ring-slate-600 dark:hover:bg-slate-700">
+               <span class="sr-only">Next</span>
+               <span class="material-symbols-outlined text-[20px]">chevron_right</span>
+             </a>
+           </nav>
+        </div>
+      </div>
+
+    </main>
+
+    <!-- Modal Detail Perawat -->
+    <div id="detailModal" class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 transition-opacity" onclick="closeDetailModal()">
+      <div class="relative bg-white dark:bg-slate-800 rounded-xl max-w-lg w-full shadow-2xl overflow-hidden transform transition-all scale-95 opacity-0" id="modalContent" onclick="event.stopPropagation()">
+        
+        <!-- Header with colored background -->
+        <div class="h-24 bg-gradient-to-r from-lazuli-blue to-medical-green relative">
+           <button onclick="closeDetailModal()" class="absolute top-4 right-4 text-white/80 hover:text-white">
+             <span class="material-symbols-outlined">close</span>
+           </button>
+        </div>
+        
+        <!-- Profile Content -->
+        <div class="px-6 pb-6 relative">
+           <!-- Avatar -->
+           <div class="absolute -top-12 left-6">
+             <div class="h-24 w-24 rounded-full border-4 border-white dark:border-slate-800 bg-white shadow-md flex items-center justify-center text-3xl font-bold text-primary" id="modalAvatar">
+               JD
+             </div>
+           </div>
+           
+           <div class="mt-14 flex justify-between items-start">
+             <div>
+               <h3 class="text-xl font-bold text-gray-900 dark:text-white" id="modalName">Nama Perawat</h3>
+               <p class="text-sm text-gray-500 dark:text-slate-400" id="modalNIP">NIP: 12345678</p>
+             </div>
+             <span class="inline-flex items-center gap-1 rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-800 dark:bg-green-900/30 dark:text-green-400" id="modalStatus">
+               Aktif
+             </span>
+           </div>
+
+           <div class="mt-6 space-y-4">
+             <div class="grid grid-cols-2 gap-4">
+               <div class="bg-gray-50 dark:bg-slate-700/50 p-3 rounded-lg">
+                 <p class="text-xs text-gray-500 dark:text-slate-400 uppercase tracking-wide">Departemen</p>
+                 <p class="font-medium text-gray-900 dark:text-white mt-1" id="modalDept">IGD</p>
+               </div>
+               <div class="bg-gray-50 dark:bg-slate-700/50 p-3 rounded-lg">
+                 <p class="text-xs text-gray-500 dark:text-slate-400 uppercase tracking-wide">Jabatan</p>
+                 <p class="font-medium text-gray-900 dark:text-white mt-1" id="modalRole">Kepala Perawat</p>
+               </div>
+             </div>
+
+             <div>
+               <h4 class="text-sm font-semibold text-gray-900 dark:text-white mb-2 flex items-center gap-2">
+                 <span class="material-symbols-outlined text-[18px] text-gray-400">contact_phone</span>
+                 Kontak & Info
+               </h4>
+               <div class="bg-gray-50 dark:bg-slate-700/50 p-4 rounded-lg space-y-2 text-sm">
+                 <div class="flex justify-between">
+                   <span class="text-gray-500 dark:text-slate-400">Email:</span>
+                   <span class="text-gray-900 dark:text-white font-medium" id="modalEmail">email@example.com</span>
+                 </div>
+                 <div class="flex justify-between">
+                   <span class="text-gray-500 dark:text-slate-400">No. Telepon:</span>
+                   <span class="text-gray-900 dark:text-white font-medium" id="modalPhone">0812-3456-7890</span>
+                 </div>
+                 <div class="flex justify-between">
+                   <span class="text-gray-500 dark:text-slate-400">Tanggal Bergabung:</span>
+                   <span class="text-gray-900 dark:text-white font-medium">10 Jan 2020</span>
+                 </div>
+               </div>
+             </div>
+           </div>
+
+           <div class="mt-6 flex gap-3">
+             <button class="flex-1 px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-lg hover:bg-gray-50 font-medium text-sm dark:bg-slate-700 dark:text-white dark:border-slate-600 dark:hover:bg-slate-600">
+               Edit Profil
+             </button>
+             <button class="flex-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 font-medium text-sm">
+               Lihat Jadwal
+             </button>
+           </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Mock Data Perawat
+      const nurses = [
+        { id: 1, name: "Siti Aminah", nip: "198501012010012001", dept: "IGD", role: "Kepala Perawat", phone: "0812-3456-7890", email: "siti.aminah@MediShift.id", status: "Aktif" },
+        { id: 2, name: "Budi Santoso", nip: "199002022015021002", dept: "ICU", role: "Perawat Senior", phone: "0813-4567-8901", email: "budi.santoso@MediShift.id", status: "Aktif" },
+        { id: 3, name: "Rina Wijaya", nip: "199503032018032003", dept: "Rawat Inap", role: "Perawat Junior", phone: "0814-5678-9012", email: "rina.wijaya@MediShift.id", status: "Cuti" },
+        { id: 4, name: "Dewi Sartika", nip: "198804042012042004", dept: "Poli Anak", role: "Perawat Anak", phone: "0815-6789-0123", email: "dewi.sartika@MediShift.id", status: "Aktif" },
+        { id: 5, name: "Andi Pratama", nip: "199805052020051005", dept: "Umum", role: "Asisten Perawat", phone: "0816-7890-1234", email: "andi.pratama@MediShift.id", status: "Aktif" },
+        { id: 6, name: "Lestari Putri", nip: "199206062016062006", dept: "Bedah", role: "Perawat Senior", phone: "0817-8901-2345", email: "lestari.putri@MediShift.id", status: "Aktif" },
+        { id: 7, name: "Fajar Nugraha", nip: "199607072019071007", dept: "IGD", role: "Perawat Junior", phone: "0818-9012-3456", email: "fajar.nugraha@MediShift.id", status: "Non-Aktif" },
+        { id: 8, name: "Maya Indah", nip: "199308082017082008", dept: "Poli Gigi", role: "Perawat Gigi", phone: "0819-0123-4567", email: "maya.indah@MediShift.id", status: "Aktif" },
+      ];
+
+      function initTable(data = nurses) {
+        const tbody = document.getElementById('nursesTableBody');
+        tbody.innerHTML = '';
+
+        data.forEach(nurse => {
+          const initials = nurse.name.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase();
+          
+          let statusBadgeClass = "";
+          if (nurse.status === "Aktif") statusBadgeClass = "bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-400";
+          else if (nurse.status === "Cuti") statusBadgeClass = "bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-400";
+          else statusBadgeClass = "bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-400";
+
+          const row = document.createElement('tr');
+          row.className = "hover:bg-gray-50 dark:hover:bg-slate-700/50 transition-colors border-b border-gray-100 dark:border-slate-700/50 last:border-0 cursor-pointer";
+          row.onclick = () => openDetailModal(nurse);
+
+          row.innerHTML = `
+            <td class="px-6 py-4">
+              <div class="flex items-center gap-3">
+                <div class="flex-shrink-0 h-10 w-10 rounded-full bg-primary/10 text-primary flex items-center justify-center text-sm font-bold">
+                  ${initials}
+                </div>
+                <div>
+                  <p class="text-sm font-semibold text-gray-900 dark:text-white">${nurse.name}</p>
+                  <p class="text-xs text-gray-500 dark:text-slate-400 font-mono">${nurse.nip}</p>
+                </div>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-slate-400">
+              ${nurse.dept}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-slate-400">
+              ${nurse.role}
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-slate-400">
+              <div class="flex flex-col">
+                <span>${nurse.phone}</span>
+                <span class="text-xs opacity-70">${nurse.email}</span>
+              </div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-center">
+              <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${statusBadgeClass}">
+                ${nurse.status}
+              </span>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+              <button onclick="event.stopPropagation();" class="text-gray-400 hover:text-primary transition-colors">
+                <span class="material-symbols-outlined text-[20px]">more_vert</span>
+              </button>
+            </td>
+          `;
+          tbody.appendChild(row);
+        });
+      }
+
+      function filterTable() {
+        const searchText = document.getElementById('searchInput').value.toLowerCase();
+        const deptFilter = document.getElementById('deptFilter').value;
+        const statusFilter = document.getElementById('statusFilter').value;
+
+        const filteredData = nurses.filter(nurse => {
+          const matchesSearch = nurse.name.toLowerCase().includes(searchText) || nurse.nip.includes(searchText);
+          const matchesDept = deptFilter === "" || nurse.dept === deptFilter;
+          const matchesStatus = statusFilter === "" || nurse.status === statusFilter;
+          
+          return matchesSearch && matchesDept && matchesStatus;
+        });
+
+        initTable(filteredData);
+      }
+
+      // Modal Logic
+      function openDetailModal(nurse) {
+        const modal = document.getElementById('detailModal');
+        const modalContent = document.getElementById('modalContent');
+        
+        // Populate Data
+        document.getElementById('modalName').innerText = nurse.name;
+        document.getElementById('modalNIP').innerText = "NIP: " + nurse.nip;
+        document.getElementById('modalDept').innerText = nurse.dept;
+        document.getElementById('modalRole').innerText = nurse.role;
+        document.getElementById('modalPhone').innerText = nurse.phone;
+        document.getElementById('modalEmail').innerText = nurse.email;
+        document.getElementById('modalStatus').innerText = nurse.status;
+        
+        // Avatar
+        const initials = nurse.name.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase();
+        document.getElementById('modalAvatar').innerText = initials;
+
+        // Show
+        modal.classList.remove('hidden');
+        // Small delay for animation
+        setTimeout(() => {
+          modal.classList.remove('opacity-0');
+          modalContent.classList.remove('scale-95', 'opacity-0');
+          modalContent.classList.add('scale-100', 'opacity-100');
+        }, 10);
+      }
+
+      function closeDetailModal() {
+        const modal = document.getElementById('detailModal');
+        const modalContent = document.getElementById('modalContent');
+        
+        // Animate Out
+        modalContent.classList.remove('scale-100', 'opacity-100');
+        modalContent.classList.add('scale-95', 'opacity-0');
+        modal.classList.add('opacity-0');
+        
+        setTimeout(() => {
+          modal.classList.add('hidden');
+        }, 300);
+      }
+
+      // Initialize - Run filter immediately to respect default "Aktif" selection
+      document.addEventListener('DOMContentLoaded', () => filterTable());
+    </script>
+  </body>
+</html>

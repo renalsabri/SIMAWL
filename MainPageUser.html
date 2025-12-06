@@ -341,7 +341,7 @@
       const scheduleCache = {};
 
       // Helper to get random time
-      const shifts = ["07:00 - 15:00", "15:00 - 23:00", "23:00 - 07:00"];
+      const shifts = ["08:00 - 15:00", "15:00 - 00:00", "00:00 - 08:00"];
 
       function getRandomShift() {
         return shifts[Math.floor(Math.random() * shifts.length)];
@@ -374,9 +374,9 @@
 
       // Determine the current shift string based on current hour
       function getCurrentShift(hour) {
-        if (hour >= 7 && hour < 15) return "07:00 - 15:00";
-        if (hour >= 15 && hour < 23) return "15:00 - 23:00";
-        return "23:00 - 07:00"; // Night shift
+        if (hour >= 8 && hour < 15) return "08:00 - 15:00";
+        if (hour >= 15 && hour < 24) return "15:00 - 00:00";
+        return "00:00 - 08:00"; // Night shift
       }
 
       // --- Logic End ---
@@ -405,9 +405,9 @@
 
         // 3. Determine Shift Label & Value
         const currentShiftValue = getCurrentShift(hourInt);
-        let shiftLabel = "Shift Malam";
-        if (currentShiftValue.startsWith("07")) shiftLabel = "Shift Pagi";
-        else if (currentShiftValue.startsWith("15")) shiftLabel = "Shift Siang";
+        let shiftLabel = "Shift Pagi";
+        if (currentShiftValue.startsWith("08")) shiftLabel = "Shift Siang";
+        else if (currentShiftValue.startsWith("15")) shiftLabel = "Shift Malam";
         
         document.getElementById('current-shift-name').innerText = `${shiftLabel} (${currentShiftValue})`;
 
